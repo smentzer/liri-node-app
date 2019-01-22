@@ -1,38 +1,111 @@
 require("dotenv").config();
-
 var keys = require("./keys.js");
-var axios = require(".axios");
-
-var Spotify = require('node-spotify-api');
-var spotify = new Spotify(keys.spotify);
-
-var omdb = require('omdb');
-var omdb = new omdb(keys.omdb)
-
-var bit_js = require('bit_js');
-var bit_js = new bits_js(keys.bits_js)
-
-
-var moment = require('moment');
-
-var command = process.argv[2];
-
-// NPM module used to access OMDB API.
-var request = require("request");
-// NPM module used to read the random.txt file.
+var axios = require("axios");
+var moment = require("moment");
 var fs = require("fs");
 
+var Spotify = require("node-spotify-api");
+var spotify = new Spotify(keys.spotify);
 
-//hi i dnt know whats happening 
-//things i want to happen 
+var command = process.argv[2];
+var nodeArgs = process.argv;
+var fullName = "";
+
+for (var i = 3; i < nodeArgs.length; i++) {
+  if (i > 3 && i < nodeArgs.length) {
+    fullName = fullName + "+" + nodeArgs[i];
+  } else {
+    fullName += nodeArgs[i];
+  }
+}
+
+//things i want to happen
+
 // concert-this
 // spotify-this-song
-// movie-this
 // do-what-it-says
 
-fs.readFile("random.txt", "utf8", function (error, data) {
-    if (error) {
-        console.log(error);
+// movie-this
+var movie = function() {
+  var movieObj = {
+    //too console log better
+    BegDivider: "",
+    Title: "",
+    Year: "",
+    imdbRate: "",
+    rottenRate: "",
+    Country: "",
+    Language: "",
+    Plot: "",
+    Actors: "",
+    //too console log better
+    EndDivider: ""
+  };
+
+  //default
+  if (fullName === "") {
+    fullName = "Mr. Nobody";
+  }
+  var queryUrl =
+    "http://www.omdbapi.com/?t=" + fullName + "&y=&plot=short&apikey=trilogy";
+
+  axios.get(queryUrl).then(function(response) {
+    movieObj.BegDivider = "~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    movieObj.Title = "Title: " + response.data.Title;
+    movieObj.Year = "Year: " + response.data.Year
+    movieObj.imdbRate = "IMDB Rating: " + response.data.imdbRate
+    movieObj.rottenRate = "Rotten Tomato Rating: " + response.data.Ratings[1].Value;
+    movieObj.Country = "Production Location: " + response.data.Country;
+    movieObj.Language = "Language " + response.data.Language;
+    movieObj.Plot = "Plot " + response.data.Plot;
+    movieObj.Actors = "Actors " + response.data.Actors;
+    //too console log better
+    movieObj.EndDivider = "~~~~~~~~~~~~~~~~~~~~~~~~~~"
+
+    for( var key in movieObj) {
+        console.log(movieObj[key]);
     }
+  });
+};
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//call the commands
+switch (command) {
+    case "concert-this":
+        concert();
+        break;
+    case "spotify-this-song":
+        spotify();
+        break;
+    case "movie-this":
+        movie();
+        break;
+    case "do-what-it-says":
+        doIt();
+        break;
+}
+
+// fs.readFile("random.txt", "utf8", function(error, data) {
+//   if (error) {
+//     console.log(error);
+//   }
+// });
