@@ -20,7 +20,7 @@ for (var i = 3; i < nodeArgs.length; i++) {
 }
 
 //things i want to happen
-
+// movie-this-
 // concert-this
 // spotify-this-song
 // do-what-it-says
@@ -50,58 +50,68 @@ var movie = function() {
     "http://www.omdbapi.com/?t=" + fullName + "&y=&plot=short&apikey=trilogy";
 
   axios.get(queryUrl).then(function(response) {
-    movieObj.BegDivider = "~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    movieObj.BegDivider = "~~~~~~~~~~~~~~~~~~~~~~~~~~";
     movieObj.Title = "Title: " + response.data.Title;
-    movieObj.Year = "Year: " + response.data.Year
-    movieObj.imdbRate = "IMDB Rating: " + response.data.imdbRate
-    movieObj.rottenRate = "Rotten Tomato Rating: " + response.data.Ratings[1].Value;
+    movieObj.Year = "Year: " + response.data.Year;
+    movieObj.imdbRate = "IMDB Rating: " + response.data.imdbRate;
+    movieObj.rottenRate =
+      "Rotten Tomato Rating: " + response.data.Ratings[1].Value;
     movieObj.Country = "Production Location: " + response.data.Country;
     movieObj.Language = "Language " + response.data.Language;
     movieObj.Plot = "Plot " + response.data.Plot;
     movieObj.Actors = "Actors " + response.data.Actors;
     //too console log better
-    movieObj.EndDivider = "~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    movieObj.EndDivider = "~~~~~~~~~~~~~~~~~~~~~~~~~~";
 
-    for( var key in movieObj) {
-        console.log(movieObj[key]);
+    for (var key in movieObj) {
+      console.log(movieObj[key]);
     }
   });
 };
 
+//concert-this
+var concert = function() {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  var concertObj = {
+    //too console log better
+    BegDivider: "",
+    Venue: "",
+    VenLoc: "",
+    Date: "",
+    //too console log better
+    EndDivider: ""
+  };
+  
+  let queryUrl =
+    "https://rest.bandsintown.com/artists/" + fullName +  "/events?app_id=codingbootcamp";
+    axios.get(queryUrl).then(function(response) {
+        concertObj.BegDivider = "~~~~~~~~~~~~~~~~~~~~~~~~~~";
+        concertObj.Venue = "Venue: " + response.data[i].venue.name;
+        concertObj.VenLoc = "Location: " + response.data[i].venue.city + ", " + response.data[i].venue.region;
+        concertObj.Date = "Date: " + moment(response.data[i].datetime).format('L')
+        //too console log better
+        concertObj.EndDivider = "~~~~~~~~~~~~~~~~~~~~~~~~~~";
+    
+        for (var key in concertObj) {
+          console.log(concertObj[key]);
+        }
+      });
+    };
 
 //call the commands
 switch (command) {
-    case "concert-this":
-        concert();
-        break;
-    case "spotify-this-song":
-        spotify();
-        break;
-    case "movie-this":
-        movie();
-        break;
-    case "do-what-it-says":
-        doIt();
-        break;
+  case "movie-this":
+    movie();
+    break;
+  case "concert-this":
+    concert();
+    break;
+  case "spotify-this-song":
+    spotify();
+    break;
+  case "do-what-it-says":
+    doIt();
+    break;
 }
 
 // fs.readFile("random.txt", "utf8", function(error, data) {
