@@ -21,7 +21,7 @@ for (var i = 3; i < nodeArgs.length; i++) {
 
 //things i want to happen
 // movie-this-
-// concert-this
+// concert-this-
 // spotify-this-song
 // do-what-it-says
 
@@ -71,7 +71,7 @@ var movie = function() {
 
 //concert-this
 var concert = function() {
-
+ 
   var concertObj = {
     //too console log better
     BegDivider: "",
@@ -93,10 +93,59 @@ var concert = function() {
         concertObj.EndDivider = "~~~~~~~~~~~~~~~~~~~~~~~~~~";
     
         for (var key in concertObj) {
-          console.log(concertObj[key]);
+          console.log(concertObj[key]); 
         }
       });
     };
+
+
+// spotify-this-song
+// var spotify = function() {
+
+//      //turn on new spotify app
+//      const spotify = new Spotify(spotifyKeys.spotify);
+
+//      if (songName === undefined) {
+//          songName = 'The Sign Ace of Base';
+//      };
+ 
+//     var spotifyObj = {
+//         //too console log better
+//         Artist: "",
+//         trackName: "",
+//         previewUrl: "",
+//         Album: "",
+//         //too console log better
+//         EndDivider: ""
+//       };
+
+    
+
+
+
+     
+      
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //call the commands
 switch (command) {
