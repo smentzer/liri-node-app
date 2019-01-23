@@ -82,7 +82,7 @@ var concert = function() {
     EndDivider: ""
   };
   
-  let queryUrl =
+  var queryUrl =
     "https://rest.bandsintown.com/artists/" + fullName +  "/events?app_id=codingbootcamp";
     axios.get(queryUrl).then(function(response) {
         concertObj.BegDivider = "~~~~~~~~~~~~~~~~~~~~~~~~~~";
@@ -100,25 +100,33 @@ var concert = function() {
 
 
 // spotify-this-song
-// var spotify = function() {
-
-//      //turn on new spotify app
-//      const spotify = new Spotify(spotifyKeys.spotify);
-
-//      if (songName === undefined) {
-//          songName = 'The Sign Ace of Base';
-//      };
+function spotF() {
  
-//     var spotifyObj = {
-//         //too console log better
-//         Artist: "",
-//         trackName: "",
-//         previewUrl: "",
-//         Album: "",
-//         //too console log better
-//         EndDivider: ""
-//       };
 
+    if (fullName === "") {
+        fullName = 'The Sign Ace of Base';
+    };
+
+
+    spotify.search({ type: 'track', query: fullName })
+      .then(function (response) {
+        console.log(response)
+   
+
+        for (var i = 0; i < response.tracks.items.length; i++) {
+
+            console.log('~~~~~~~~~~~~~~~~~~~~~~~');
+            console.log("Artist(s): " + response.tracks.items[i].artists[0].name);
+            console.log("Songs Title: " + response.tracks.items[i].name);
+            console.log("Album: " + response.tracks.items[i].album.name);
+            console.log("Preview Song: " + response.tracks.items[i].preview_url);
+            console.log('~~~~~~~~~~~~~~~~~~~~~~~');
+        }
+      })
+      .catch(err=> console.log(err))
+
+
+}
     
 
 
@@ -156,7 +164,7 @@ switch (command) {
     concert();
     break;
   case "spotify-this-song":
-    spotify();
+    spotF();
     break;
   case "do-what-it-says":
     doIt();
