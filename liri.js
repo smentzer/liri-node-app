@@ -22,7 +22,7 @@ for (var i = 3; i < nodeArgs.length; i++) {
 //things i want to happen
 // movie-this-
 // concert-this-
-// spotify-this-song
+// spotify-this-song-
 // do-what-it-says
 
 // movie-this
@@ -124,10 +124,25 @@ function spotF() {
         }
       })
       .catch(err=> console.log(err))
-
-
 }
-    
+
+// do-what-it-says
+function doIt() {
+  fs.readFile("random.txt", "utf8", function(error, data) {
+  if (error) {
+    console.log(error);
+  } 
+
+data = data.split(",")
+fullName = data[1];
+
+switch (data[0]) {
+  case "spotify-this-song":
+    spotF();
+    break;
+}
+});
+}  
 
 
 
@@ -135,21 +150,6 @@ function spotF() {
       
       
       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -171,8 +171,4 @@ switch (command) {
     break;
 }
 
-// fs.readFile("random.txt", "utf8", function(error, data) {
-//   if (error) {
-//     console.log(error);
-//   }
-// });
+
